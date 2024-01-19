@@ -98,8 +98,10 @@ class Command:
             for i in range(n):
                 _time = perf_counter()*1000
                 ed.set_text_line(-1, '00 '*10)
+                ed.set_text_line(-2, '00 '*10)
+                #ed.insert(0, ed.get_line_count(),'\n'+'00 '*10)
                 diff = perf_counter()*1000 - _time
-                result.append([i+1, diff])
+                result.append([i, diff])
             ed.set_prop(PROP_MODIFIED, False)
             ed.cmd(cmd_FileClose)
             return result
