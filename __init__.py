@@ -101,10 +101,33 @@ class Command:
                 ed.set_text_line(-2, '00 '*10)
                 #ed.insert(0, ed.get_line_count(),'\n'+'00 '*10)
                 diff = perf_counter()*1000 - _time
-                result.append([i, diff])
+                result.append([i+1, diff])
             ed.set_prop(PROP_MODIFIED, False)
             ed.cmd(cmd_FileClose)
             return result
             
         plot(test(1000), offsetx=300)
+    
+    def run_replace_lines(self):
+        def test(n):
+            file_open('')
+            result = []
+            ed.set_text_all(('00 '*10 + '\n') * n)
+            app_idle()
+            for i in range(n):
+                _time = perf_counter()*1000
+                ed.replace_lines(0, 0, [])
+                diff = perf_counter()*1000 - _time
+                diff = min(diff, 0.04)
+                result.append([ed.get_line_count(), diff])
+            ed.set_prop(PROP_MODIFIED, False)
+            ed.cmd(cmd_FileClose)
+            
+            #with open('/home/yura/plot_test/data.txt', 'w') as file:
+            #    for d in result:
+            #        file.write('{} {};'.format(d[0], d[1]))
+            
+            return result
+            
+        plot(test(10000), offsetx=300)
 

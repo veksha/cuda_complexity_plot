@@ -45,3 +45,8 @@ section=commands
 caption=Complexity Plot\Test 8: ed.set_text_line
 method=run_set_text_line
 
+[item10]
+section=commands
+caption=Complexity Plot\Test 9: ed.replace_lines
+method=run_replace_lines
+
